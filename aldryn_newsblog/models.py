@@ -593,4 +593,4 @@ def update_search_data(sender, instance, **kwargs):
                 article = placeholder._attached_model_cache.objects.language(
                     instance.language).get(content=placeholder.pk)
                 article.search_data = article.get_search_data(instance.language)
-                article.save()
+                article.save() 
