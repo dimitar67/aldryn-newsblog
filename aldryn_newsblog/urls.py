@@ -41,7 +41,7 @@ urlpatterns = [
     url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<pk>\d+)/$',
         ArticleDetail.as_view(), name='article-detail'),
     # These support permalinks with <article_slug>
-    url(r'^article/(?P<slug>\w[-\w]*)/$',
+    url(r'^events/(?P<slug>\w[-\w]*)/$',
         ArticleDetail.as_view(), name='article-detail'),
     url(r'^(?P<category>\w[-\w]*)/(?P<slug>\w[-\w]*)/$',
         ArticleDetail.as_view(), name='article-detail'),
