@@ -23,7 +23,7 @@ urlpatterns = [
     #url(r'^(?P<slug>\w[-\w]*)/$',
         #ArticleDetail.as_view(), name='article-detail'),
 
-    url(r'^(?P<year>\d{4})/$',
+    url(r'^year/(?P<year>\d{4})/$',
         YearArticleList.as_view(), name='article-list-by-year'),
     url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/$',
         MonthArticleList.as_view(), name='article-list-by-month'),
