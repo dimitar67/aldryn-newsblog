@@ -199,7 +199,7 @@ class Article(TranslatedAutoSlugifyMixin,
             kwargs.update(pk=self.pk)
         if 'c' in permalink_type:
             category='topics'
-            if self.categories:
+            if self.categories.exists():
                 category=self.categories.all()[0].slug
             
             kwargs.update(category=category)
