@@ -353,7 +353,7 @@ class CategoryArticleList(ArticleListBase):
     def dispatch(self, request,category, *args, **kwargs):
         try:
             obj = Category.objects.get(translations__slug=category)
-            return super(CategoryArticleList, self).dispatch(request,category, *args, **kwargs)
+            return super(CategoryArticleList, self).dispatch(request,category, *args, **kwargs) 
         except Category.DoesNotExist:
               return HttpResponseRedirect(reverse('aldryn_newsblog:article-detail', kwargs={'slug':category}))
    
