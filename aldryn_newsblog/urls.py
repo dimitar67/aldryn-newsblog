@@ -6,7 +6,7 @@ from aldryn_newsblog.views import (
     CategoryArticleList, DayArticleList, MonthArticleList, TagArticleList,
     YearArticleList,
 )
-from morgan.views import newsfeed_details
+
 
 urlpatterns = [
     url(r'^$',
@@ -67,8 +67,7 @@ urlpatterns = [
     url(r'^tags/tag/(?P<tag>\w[-\w]*)/feed/$',
         TagFeed(), name='article-list-by-tag-feed'),
 
-     url(r'^feed/news-feed/(?P<slug>\w[-\w]*)/$',
-        newsfeed_details, name='newsfeed_details'),
+    
 
 
 
