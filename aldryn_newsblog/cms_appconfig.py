@@ -24,7 +24,7 @@ PERMALINK_CHOICES = (
     ('ymds', _('1969/07/16/the-eagle-has-landed/', )),
     ('ymdi', _('1969/07/16/11/', )),
 )
-
+ 
 NON_PERMALINK_HANDLING = (
     (200, _('Allow')),
     (302, _('Redirect to permalink (default)')),
