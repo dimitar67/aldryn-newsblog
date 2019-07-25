@@ -63,6 +63,8 @@ SQL_IS_TRUE = {
 }[connection.vendor]
 
 
+
+
 @python_2_unicode_compatible
 class Article(TranslatedAutoSlugifyMixin,
               TranslationHelperMixin,
@@ -195,6 +197,12 @@ class Article(TranslatedAutoSlugifyMixin,
             kwargs.update(day="%02d" % self.publishing_date.day)
         if 'i' in permalink_type:
             kwargs.update(pk=self.pk)
+        if 'c' in permalink_type:
+            category='topics'
+            if self.categories:
+                category=self.categories.all()[0].slug
+            
+            kwargs.update(category=category)
         if 's' in permalink_type:
             slug, lang = self.known_translation_getter(
                 'slug', default=None, language_code=language)
@@ -203,7 +211,8 @@ class Article(TranslatedAutoSlugifyMixin,
                 if get_redirect_on_fallback(language, site_id):
                     language = lang
                 kwargs.update(slug=slug)
-
+                
+       
         if self.app_config and self.app_config.namespace:
             namespace = '{0}:'.format(self.app_config.namespace)
         else:

@@ -17,6 +17,7 @@ from parler.models import TranslatableModel, TranslatedFields
 
 
 PERMALINK_CHOICES = (
+    ('cs', _('category-slug/the-eagle-has-landed/', )),
     ('s', _('the-eagle-has-landed/', )),
     ('ys', _('1969/the-eagle-has-landed/', )),
     ('yms', _('1969/07/the-eagle-has-landed/', )),

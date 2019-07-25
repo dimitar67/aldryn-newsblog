@@ -104,6 +104,7 @@ class ArticleDetail(AppConfigMixin, AppHookCheckMixin, PreviewModeMixin,
     day_url_kwarg = 'day'
     slug_url_kwarg = 'slug'
     pk_url_kwarg = 'pk'
+    category_url_kwarg = 'category'
 
     def get(self, request, *args, **kwargs):
         """
@@ -262,7 +263,7 @@ class ArticleSearchResultsList(ArticleListBase):
     def get(self, request, *args, **kwargs):
         self.query = request.GET.get('q')
         self.max_articles = request.GET.get('max_articles', 0)
-        self.edit_mode = (request.toolbar and toolbar_edit_mode_active(request))
+        self.edit_mode =(request.toolbar and toolbar_edit_mode_active (request)) #(request.toolbar and request.toolbar.edit_mode) original code tha gives error:'CMSToolbar' object has no attribute 'edit_mode'
         return super(ArticleSearchResultsList, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
@@ -327,6 +328,7 @@ class AuthorArticleList(ArticleListBase):
         kwargs['newsblog_author'] = self.author
         return super(AuthorArticleList, self).get_context_data(**kwargs)
 
+from django.core.urlresolvers import reverse
 
 class CategoryArticleList(ArticleListBase):
     """A list of articles filtered by categories."""
@@ -348,6 +350,14 @@ class CategoryArticleList(ArticleListBase):
         ctx = super(CategoryArticleList, self).get_context_data(**kwargs)
         ctx['newsblog_category'] = self.category
         return ctx
+    def dispatch(self, request,category, *args, **kwargs):
+        try:
+            obj = Category.objects.get(translations__slug=category)
+            return super(CategoryArticleList, self).dispatch(request,category, *args, **kwargs)
+        except Category.DoesNotExist:
+              return HttpResponseRedirect(reverse('aldryn_newsblog:article-detail', kwargs={'slug':category}))
+   
+
 
 
 class TagArticleList(ArticleListBase):
@@ -423,3 +433,5 @@ class DayArticleList(DateRangeArticleList):
             int(kwargs['year']), int(kwargs['month']), int(kwargs['day']))
         date_to = date_from + relativedelta(days=1)
         return date_from, date_to
+
+
